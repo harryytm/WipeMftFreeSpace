@@ -44,9 +44,12 @@ goto :eof
 :msg_main
 cls
 title Wipe MFT free space tool
+echo Wipe MFT free space tool
+echo Copyright (C) 2020 Harry Yeung Tim Ming.
+echo Licensed under GPLv2.
 echo.
 echo  Usage:
-echo  - Enter number of MFT record to wipe or leave empty to use default
+echo  - Enter number of unused MFT record to wipe or leave empty to use default
 echo  - Enter a valid path to change directory
 echo  - Enter 0 to exit
 echo.
