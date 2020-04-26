@@ -1,10 +1,12 @@
 @echo off
 cls
 set default=1000
+set scriptname=Wipe MFT free space tool
 call :msg_main
 call :msg_currdir
 
 :start
+call :msg_usage
 set input=%default%
 set /p input=Input(%input%): 
 
@@ -13,9 +15,6 @@ SET "var="&for /f "delims=0123456789" %%i in ("%input%") do set var=%%i
 if defined var (
 	call :msg_main
 	cd /d "%input%"\
-	if exist "%input%"\ (
-		rem echo Changed directory to %input%
-	)
 	call :msg_currdir
 	goto start
 ) else (
@@ -23,14 +22,14 @@ if defined var (
 )
 
 cls
+call :banner
 echo Creating folders...
 FOR /L %%i in (2,1,%input%) do (
-	title Creating folder %%i...
+	title %scriptname% - Creating folder %%i...
 	md "tmp\WipeMftFreeSpace%%i"
 )
 
-cls
-title Cleanup
+title %scriptname% - Cleanup
 echo Cleaning up...
 rd /s /q tmp
 call :msg_main
@@ -39,15 +38,18 @@ call :msg_currdir
 goto start
 
 :banner
+echo %scriptname%
+echo Copyright (C) 2020 Harry Yeung Tim Ming. Licensed under GPLv2.
+echo.
 goto :eof
 
 :msg_main
 cls
-title Wipe MFT free space tool
-echo Wipe MFT free space tool
-echo Copyright (C) 2020 Harry Yeung Tim Ming.
-echo Licensed under GPLv2.
-echo.
+call :banner
+title %scriptname%
+goto :eof
+
+:msg_usage
 echo  Usage:
 echo  - Enter number of unused MFT record to wipe or leave empty to use default
 echo  - Enter a valid path to change directory
